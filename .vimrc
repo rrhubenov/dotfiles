@@ -1,3 +1,4 @@
+"--------BASIC CONFIG BEGIN-------------
 filetype plugin indent on
 syntax on
 
@@ -61,18 +62,21 @@ set splitright
 set clipboard=unnamed,unnamedplus
 
 " Window switching mappings
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
+nnoremap sj <c-w>j
+nnoremap sk <c-w>k
+nnoremap sl <c-w>l
+nnoremap sh <c-w>h
 " In terminal
-tnoremap <c-j> <c-w>j
-tnoremap <c-k> <c-w>k
-tnoremap <c-l> <c-w>l
-tnoremap <c-h> <c-w>h
+" DEPRECATED. Not very POSIX/UNIX like to use an emulated term
+" in your text editor. Use tmux instead
+"tnoremap <c-j> <c-w>j
+"tnoremap <c-k> <c-w>k
+"tnoremap <c-l> <c-w>l
+"tnoremap <c-h> <c-w>h
 
 " go to start of line and visual select to end
-nnoremap vv ^vg_
+"nnoremap vv V
+"nnoremap V  vg_
 nnoremap Y  yg_
 
 " Fast scrolling
@@ -81,14 +85,15 @@ nnoremap K 5gk
 xnoremap J 5gj
 xnoremap K 5gk
 
-" go to manual on cursor
-nnoremap gm K
 
 " visual line moving. Helpful when wrapping
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+
+" Going to file opens a tab instead of switching the buffer
+nnoremap gf <c-w>gf
 
 " No use for Q
 map Q <nop>
@@ -102,10 +107,31 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+"--------BASIC CONFIG END-------------
 
+"--------PLUGINS BEGIN----------------
 call plug#begin()
 
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
+"--------PLUGINS END------------------
 
+
+"---------ADVANCED CONFIG BEGIN-------
+let mapleader = ","
+nnoremap <leader>m :w\|:silent make\|redraw!\|cw<CR>
+
+" Enable man.vim plugin. This comes natively with vim in
+" its runtime path
+runtime! ftplugin/man.vim
+" open man pages in a vertical window
+let g:ft_man_open_mode="vert"
+" go to manual on cursor
+" This fucking sucks
+" Need to do this so I can specify the man section I want
+function! ManSect() range
+  exe "Man " v:count1 expand("<cword>")
+endfunction
+nnoremap gm :call ManSect()<CR>
+"---------ADVANCED CONFIG END---------
