@@ -15,8 +15,8 @@ set incsearch
 set laststatus=2
 colorscheme gentooish
 
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
 
@@ -113,6 +113,7 @@ set noswapfile
 call plug#begin()
 
 Plug 'rust-lang/rust.vim'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 "--------PLUGINS END------------------
