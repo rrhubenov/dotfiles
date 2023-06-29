@@ -114,11 +114,19 @@ call plug#begin()
 
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
+Plug '~/help-me.vim/'
+Plug 'kana/vim-smartword'
 
 call plug#end()
 "--------PLUGINS END------------------
+"--------PLUGIN SPECIFIC CONF---------
 
+nmap w  <Plug>(smartword-w)
+nmap b  <Plug>(smartword-b)
+nmap e  <Plug>(smartword-e)
+nmap ge <Plug>(smartword-ge)
 
+"--------PLUGIN SPECIFIC CONF END---------
 "---------ADVANCED CONFIG BEGIN-------
 let mapleader = ","
 nnoremap <leader>m :w\|:silent make\|redraw!\|cw<CR>
