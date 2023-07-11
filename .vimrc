@@ -1,4 +1,5 @@
 "--------BASIC CONFIG BEGIN-------------
+
 filetype plugin indent on
 syntax on
 
@@ -13,7 +14,7 @@ set wildmode=list:longest,full
 set hlsearch
 set incsearch
 set laststatus=2
-colorscheme gentooish
+colorscheme desert
 
 set tabstop=4
 set shiftwidth=4
@@ -114,13 +115,17 @@ call plug#begin()
 
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
-Plug '~/help-me.vim/'
+Plug '~/github/help-me.vim/'
 Plug 'kana/vim-smartword'
 
 call plug#end()
+
+
 "--------PLUGINS END------------------
 "--------PLUGIN SPECIFIC CONF---------
 
+" Use smartword plugin instead of default 
+" For horizontal traversal
 nmap w  <Plug>(smartword-w)
 nmap b  <Plug>(smartword-b)
 nmap e  <Plug>(smartword-e)
@@ -144,3 +149,7 @@ function! ManSect() range
 endfunction
 nnoremap gm :call ManSect()<CR>
 "---------ADVANCED CONFIG END---------
+
+call helpme#Add("rrhubenov/test_help_me")
+
+
