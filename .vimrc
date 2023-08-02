@@ -150,6 +150,4 @@ endfunction
 nnoremap gm :call ManSect()<CR>
 "---------ADVANCED CONFIG END---------
 
-call helpme#Add("rrhubenov/test_help_me")
-
 
