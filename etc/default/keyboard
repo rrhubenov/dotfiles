@@ -1,0 +1,10 @@
+# KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="pc105"
+XKBLAYOUT="us,bg"
+XKBVARIANT=",bas_phonetic"
+XKBOPTIONS="grp:alt_shift_toggle,grp_led:scroll,caps:ctrl_modifier"
+
+BACKSPACE="guess"
