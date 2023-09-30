@@ -1,31 +1,39 @@
 #!/bin/bash
 
-# Manual control of intel backlight (display brightness)
-
 ARG=$1
+STEP=0.1
+LOWEST=0.03
 
 if [ -z $ARG ]; then
-    echo "USAGE: br [NUMBER]" >& 2
+    echo "USAGE: br [raise|lower]" >& 2
     exit
 fi
 
-if ! echo $ARG | egrep "^([1-9][0-9]*|0)$" ; then
-    echo "Arg must be a number" >& 2
-    exit
-fi
-
-if [ $ARG -gt 100 -o $ARG -lt 0 ]; then
-    echo "Arg must be a number between 0 and 100" >& 2
-    exit
-fi
-
-if [ $ARG -lt 3 ]; then
-    ARG=3
-fi
-
+CURR_BRIGHTNESS=$(cat /sys/class/backlight/intel_backlight/actual_brightness | xargs)
 MAX_BRIGHTNESS=$(cat /sys/class/backlight/intel_backlight/max_brightness | tr -d '\n')
-PRCT=$(echo "scale=2; ${ARG}/100" | bc)
 
-BRIGHTNESS=$(echo "($PRCT * $MAX_BRIGHTNESS)" / 1 | bc)
+BRIGHTNESS_STEP=$(echo "(${STEP} * ${MAX_BRIGHTNESS}) / 1" | bc)
 
+if [ $1 = "raise" ]; then
+    if [ $CURR_BRIGHTNESS -lt $BRIGHTNESS_STEP ]; then
+        BRIGHTNESS=$BRIGHTNESS_STEP
+    else
+        BRIGHTNESS=$(( $CURR_BRIGHTNESS + $BRIGHTNESS_STEP ))
+
+        if [ $BRIGHTNESS -gt $MAX_BRIGHTNESS ]; then
+            BRIGHTNESS=$MAX_BRIGHTNESS
+        fi
+    fi
+
+elif [ $1 = "lower" ]; then
+    BRIGHTNESS=$(( $CURR_BRIGHTNESS - $BRIGHTNESS_STEP ))
+    
+    if [ $BRIGHTNESS -lt $BRIGHTNESS_STEP ]; then
+        BRIGHTNESS=$( echo "($LOWEST * $MAX_BRIGHTNESS) / 1" | bc)
+    fi
+else
+    echo "Unknown argument $1" >& 2
+fi
+
+#echo $BRIGHTNESS
 echo $BRIGHTNESS | sudo tee /sys/class/backlight/intel_backlight/brightness

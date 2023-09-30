@@ -1,0 +1,22 @@
+#!/bin/bash
+
+MAX=150
+MIN=0
+STEP=10
+
+if [ $1 = "raise" ]; then
+    CURR=$(pactl get-sink-volume @DEFAULT_SINK@ | cut -d'/' -f2 | head -n 1| xargs | tr -d '%') 
+
+    if [ $CURR -ge $MAX ]; then
+        exit
+    fi
+    
+    pactl set-sink-volume @DEFAULT_SINK@ +${STEP}%
+
+elif [ $1 = "lower" ]; then
+    pactl set-sink-volume @DEFAULT_SINK@ -${STEP}%
+else
+    echo "Unknown command $1" >& 2
+fi
+
+

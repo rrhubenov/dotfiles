@@ -11,10 +11,11 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set wildmenu		" display completion matches in a status line
 set wildmode=list:longest,full
+set undofile
 set hlsearch
 set incsearch
 set laststatus=2
-colorscheme desert
+
 
 set tabstop=4
 set shiftwidth=4
@@ -117,6 +118,10 @@ Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
 Plug '~/github/help-me.vim/'
 Plug 'kana/vim-smartword'
+Plug 'nvim-treesitter/nvim-treesitter', { 'tag': 'v0.7.2' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'sainnhe/everforest'
 
 call plug#end()
 
@@ -124,13 +129,30 @@ call plug#end()
 "--------PLUGINS END------------------
 "--------PLUGIN SPECIFIC CONF---------
 
+"--------SMARTWORD--------------------
 " Use smartword plugin instead of default 
 " For horizontal traversal
 nmap w  <Plug>(smartword-w)
 nmap b  <Plug>(smartword-b)
 nmap e  <Plug>(smartword-e)
 nmap ge <Plug>(smartword-ge)
+"--------SMARTWORD END--------------------
 
+
+"--------TREESITTER---------------------
+
+lua << EOF
+
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true
+    }
+}
+
+EOF
+
+"--------TREESITTER END---------------------
+"
 "--------PLUGIN SPECIFIC CONF END---------
 "---------ADVANCED CONFIG BEGIN-------
 let mapleader = ","
@@ -145,9 +167,35 @@ let g:ft_man_open_mode="vert"
 " This fucking sucks
 " Need to do this so I can specify the man section I want
 function! ManSect() range
-  exe "Man " v:count1 expand("<cword>")
+  exe "vertical Man " v:count1 expand("<cword>")
 endfunction
 nnoremap gm :call ManSect()<CR>
 "---------ADVANCED CONFIG END---------
 
 
+nnoremap J 5gj
+nnoremap K 5gk
+xnoremap J 5gj
+xnoremap K 5gk
+
+nnoremap <silent> <leader> :WhichKey ','<CR>
+
+"---------COLORSCHEME--------------
+" Important!!
+if has('termguicolors')
+  set termguicolors
+endif
+
+" For dark version.
+set background=dark
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme everforest`.
+" Available values: 'hard', 'medium'(default), 'soft'
+let g:everforest_background = 'hard'
+
+let g:everforest_dim_inactive_windows = 1
+" For better performance
+let g:everforest_better_performance = 1
+
+colorscheme everforest

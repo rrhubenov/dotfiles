@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo wpa_supplicant -c /root/wpa.conf -i wlp0s20f3 -B
+
+sudo dhclient wlp0s20f3
+
