@@ -15,6 +15,7 @@ set undofile
 set hlsearch
 set incsearch
 set laststatus=2
+set colorcolumn=80
 
 
 set tabstop=4
@@ -122,6 +123,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'tag': 'v0.7.2' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sainnhe/everforest'
+Plug 'sainnhe/sonokai'
 
 call plug#end()
 
@@ -187,15 +189,33 @@ if has('termguicolors')
 endif
 
 " For dark version.
-set background=dark
+"set background=dark
+"set background=light
 
+"---- EVERFOREST -----
 " Set contrast.
 " This configuration option should be placed before `colorscheme everforest`.
 " Available values: 'hard', 'medium'(default), 'soft'
-let g:everforest_background = 'hard'
+"let g:everforest_background = 'soft'
+"
+"let g:everforest_dim_inactive_windows = 1
+"" For better performance
+"let g:everforest_better_performance = 1
 
-let g:everforest_dim_inactive_windows = 1
-" For better performance
-let g:everforest_better_performance = 1
+"colorscheme everforest
 
-colorscheme everforest
+"---- SONOKAI -----
+let g:sonokai_style = 'atlantis'
+let g:sonokai_dim_inactive_windows = 1
+let g:sonokai_better_performance = 1
+
+colorscheme sonokai
+
+
+"-------FZF--------
+ nnoremap <c-f> :Rg<CR>
+ tnoremap <c-f> <c-c>
+
+
+ "-------- LUA CONFIG -----------
+ lua require('init')
