@@ -22,7 +22,6 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-
 set ttimeout		" time out for key codes
 set ttimeoutlen=100	" wait up to 100ms after Esc for special key
 
@@ -125,6 +124,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/sonokai'
 
+" Autocompletion
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'L3MON4D3/LuaSnip'
+
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+
 call plug#end()
 
 
@@ -211,11 +218,9 @@ let g:sonokai_better_performance = 1
 
 colorscheme sonokai
 
-
 "-------FZF--------
  nnoremap <c-f> :Rg<CR>
  tnoremap <c-f> <c-c>
-
 
  "-------- LUA CONFIG -----------
  lua require('init')
