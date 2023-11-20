@@ -1,6 +1,4 @@
 
-
-
 local lsp = require('lsp-zero')
 
 lsp.on_attach(function(client, bufnr)
@@ -10,12 +8,33 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
-  ["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
-  ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+local cmp_action = require('lsp-zero').cmp_action()
+
+cmp.setup({
+    mapping = {
+        ['<Tab>'] = cmp.mapping.confirm({select = true}),
+        ['<C-c>'] = cmp.mapping.abort(),
+        ['<Up>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+        ['<Down>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+        ['<C-k>'] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_prev_item({behavior = 'insert'})
+            else
+                cmp.complete()
+            end
+        end),
+        ['<C-j>'] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_next_item({behavior = 'insert'})
+            else
+                cmp.complete()
+            end
+        end),
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    }
 })
 
 
