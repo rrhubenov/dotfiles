@@ -230,3 +230,12 @@ colorscheme sonokai
 
  "-------- LUA CONFIG -----------
  lua require('init')
+
+
+ "-----------NETRW CONFIG----------
+let g:netrw_winsize = 30
+let g:netrw_liststyle=3
+let g:netrw_banner = 0
+nnoremap <c-l> :Lexplore<CR>
+autocmd filetype netrw noremap <buffer> sl <c-w>l
+autocmd filetype netrw noremap <buffer> <c-l> :q<CR>
