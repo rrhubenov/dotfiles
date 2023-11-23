@@ -233,9 +233,10 @@ colorscheme sonokai
 
 
  "-----------NETRW CONFIG----------
-let g:netrw_winsize = 30
+let g:netrw_winsize = 20
 let g:netrw_liststyle=3
 let g:netrw_banner = 0
+let g:netrw_sort_options = "i"
 nnoremap <c-l> :Lexplore<CR>
 autocmd filetype netrw noremap <buffer> sl <c-w>l
 autocmd filetype netrw noremap <buffer> <c-l> :q<CR>
