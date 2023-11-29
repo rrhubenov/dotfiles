@@ -1,4 +1,4 @@
-"--------BASIC CONFIG BEGIN-------------
+"e $MYVIMRC--------BASIC CONFIG BEGIN-------------
 
 filetype plugin indent on
 syntax on
@@ -104,6 +104,9 @@ map Q <nop>
 inoremap <c-p> <esc>pa
 cnoremap <c-p> <c-r>"
 
+" open definition in another split
+nmap <silent> gvd :vsplit<CR>gd
+
 " YOLO
 set nobackup
 set nowritebackup
@@ -146,7 +149,6 @@ nmap b  <Plug>(smartword-b)
 nmap e  <Plug>(smartword-e)
 nmap ge <Plug>(smartword-ge)
 "--------SMARTWORD END--------------------
-
 
 "--------TREESITTER---------------------
 
