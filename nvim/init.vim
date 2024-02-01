@@ -20,7 +20,7 @@ set colorcolumn=80
 
 set tabstop=4
 set shiftwidth=4
-set expandtab
+" set expandtab
 
 set ttimeout		" time out for key codes
 set ttimeoutlen=100	" wait up to 100ms after Esc for special key
@@ -105,7 +105,7 @@ inoremap <c-p> <esc>pa
 cnoremap <c-p> <c-r>"
 
 " open definition in another split
-nmap <silent> gvd :vsplit<CR>gd
+" nmap <silent> gvd :vsplit<CR>gd
 
 " YOLO
 set nobackup
@@ -134,6 +134,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'L3MON4D3/LuaSnip'
 
 Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+
+" Git
+
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -227,14 +231,14 @@ let g:sonokai_better_performance = 1
 colorscheme sonokai
 
 "-------FZF--------
- nnoremap <c-f> :Rg<CR>
- tnoremap <c-f> <c-c>
+nnoremap <c-f> :RG<CR>
+tnoremap <c-f> <c-c>
 
- "-------- LUA CONFIG -----------
- lua require('init')
+"-------- LUA CONFIG -----------
+lua require('init')
 
 
- "-----------NETRW CONFIG----------
+"-----------NETRW CONFIG----------
 let g:netrw_winsize = 20
 let g:netrw_liststyle=3
 let g:netrw_banner = 0

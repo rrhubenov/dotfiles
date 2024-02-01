@@ -4,7 +4,7 @@ local lsp = require('lsp-zero')
 lsp.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
-  vim.keymap.set("n", "<C-q>", function() vim.lsp.buf.workspace_symbol() end, opts)
+  -- vim.keymap.set("n", "<C-q>", function() vim.lsp.buf.workspace_symbol() end, opts)
   lsp.default_keymaps({buffer = bufnr})
 end)
 
