@@ -126,6 +126,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/sonokai'
+Plug 'psliwka/vim-smoothie'
 
 " Autocompletion
 Plug 'neovim/nvim-lspconfig'
@@ -140,7 +141,6 @@ Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 Plug 'tpope/vim-fugitive'
 
 call plug#end()
-
 
 "--------PLUGINS END------------------
 "--------PLUGIN SPECIFIC CONF---------
@@ -246,3 +246,4 @@ let g:netrw_sort_options = "i"
 nnoremap <c-l> :Lexplore<CR>
 autocmd filetype netrw noremap <buffer> sl <c-w>l
 autocmd filetype netrw noremap <buffer> <c-l> :q<CR>
+
