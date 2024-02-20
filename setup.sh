@@ -1,3 +1,3 @@
-ln .bashrc ~/.bashrc 
-ln .aliases ~/.aliases
-ln .tmux.conf ~/.tmux.conf
+ln -s .bashrc ~/.bashrc 
+ln -s .aliases ~/.aliases
+ln -s .tmux.conf ~/.tmux.conf
