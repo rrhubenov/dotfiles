@@ -1,0 +1,10 @@
+alias vim='nvim'
+alias python='python3'
+alias cal='ncal -b'
+
+alias j='cd "$(find -P ~ -type d | fzf)"'
+alias sound='pavucontrol'
+alias screens='arandr'
+
+alias l='ls -lh'
+alias gs='git status'

@@ -2,7 +2,7 @@
 
 MAX=150
 MIN=0
-STEP=10
+STEP=5
 
 if [ $1 = "raise" ]; then
     CURR=$(pactl get-sink-volume @DEFAULT_SINK@ | cut -d'/' -f2 | head -n 1| xargs | tr -d '%') 
