@@ -113,6 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 PATH=${PATH}:/usr/sbin
+PATH=${PATH}:~/bin
 
 source ~/.aliases
 
