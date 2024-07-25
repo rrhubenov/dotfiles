@@ -18,9 +18,9 @@ set laststatus=2
 set colorcolumn=80
 
 
-set tabstop=4
-set shiftwidth=4
-" set expandtab
+set tabstop=8 softtabstop=0
+set shiftwidth=4 smarttab
+set expandtab
 
 set ttimeout		" time out for key codes
 set ttimeoutlen=100	" wait up to 100ms after Esc for special key
@@ -119,14 +119,13 @@ call plug#begin()
 
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
-Plug '~/github/help-me.vim/'
 Plug 'kana/vim-smartword'
-Plug 'nvim-treesitter/nvim-treesitter', { 'tag': 'v0.7.2' }
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/sonokai'
-Plug 'psliwka/vim-smoothie'
+" Plug 'psliwka/vim-smoothie'
 
 " Autocompletion
 Plug 'neovim/nvim-lspconfig'
@@ -135,6 +134,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'L3MON4D3/LuaSnip'
 
 Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+
+" Telescope (Plenery is some sort of lib for async code)
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
 
 " Git
 
@@ -185,15 +188,15 @@ function! ManSect() range
   exe "vertical Man " v:count1 expand("<cword>")
 endfunction
 nnoremap gm :call ManSect()<CR>
-"---------ADVANCED CONFIG END---------
 
+" Remove highlight by pressing CR
+nnoremap <silent> <cr> :noh<cr><cr>
+"---------ADVANCED CONFIG END---------
 
 nnoremap J 5gj
 nnoremap K 5gk
 xnoremap J 5gj
 xnoremap K 5gk
-
-nnoremap <silent> <leader> :WhichKey ','<CR>
 
 "---------COLORSCHEME--------------
 " Important!!
@@ -231,8 +234,8 @@ let g:sonokai_better_performance = 1
 colorscheme sonokai
 
 "-------FZF--------
-nnoremap <c-f> :RG<CR>
-tnoremap <c-f> <c-c>
+"nnoremap <c-f> :RG<CR>
+"tnoremap <c-f> <c-c>
 
 "-------- LUA CONFIG -----------
 lua require('init')
