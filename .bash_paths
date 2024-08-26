@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PATH=${PATH}:/usr/sbin
+PATH=${PATH}:${HOME}/bin
+
+if [ -d ${HOME}/go ]; then
+	PATH=$PATH:"${HOME}/go/bin"
+fi
+
+if which brew; then
+	export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH
+	export PATH=$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH
+	export PATH=$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH
+	export PATH=$(brew --prefix)/opt/grep/libexec/gnubin:$PATH
+	export PATH=$(brew --prefix)/opt/gzip/bin:$PATH
+fi
+

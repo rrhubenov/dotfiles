@@ -38,8 +38,21 @@ cmp.setup({
     }
 })
 
-
-require'lspconfig'.gopls.setup{}
+local util = require "lspconfig/util"
+require'lspconfig'.gopls.setup {
+  cmd = {"gopls"},
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      usePlaceholders = true,
+      analyses = {
+        unusedparams = true,
+      },
+    },
+  },
+}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.rust_analyzer.setup({
     on_attach=on_attach,
@@ -62,6 +75,8 @@ require'lspconfig'.rust_analyzer.setup({
         }
     }
 })
+require'lspconfig'.zls.setup{}
+
 
 
 
@@ -91,6 +106,18 @@ require('telescope').setup{
 		-- }
 		-- Now the picker_config_key will be applied every time you call this
 		-- builtin picker
+            find_files = {
+                theme = "ivy",
+            },
+            live_grep = {
+                theme = "ivy",
+            },
+            git_files = {
+                theme = "ivy",
+            },
+            lsp_references = {
+                theme = "ivy",
+            },
 	},
 	extensions = {
 	-- Your extension configuration goes here:

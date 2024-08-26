@@ -117,7 +117,7 @@ set noswapfile
 "--------PLUGINS BEGIN----------------
 call plug#begin()
 
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-smartword'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -137,39 +137,17 @@ Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 
 " Telescope (Plenery is some sort of lib for async code)
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 " Git
-
 Plug 'tpope/vim-fugitive'
+
+" Zig
+Plug 'ziglang/zig.vim'
 
 call plug#end()
 
 "--------PLUGINS END------------------
-"--------PLUGIN SPECIFIC CONF---------
-
-"--------SMARTWORD--------------------
-" Use smartword plugin instead of default 
-" For horizontal traversal
-nmap w  <Plug>(smartword-w)
-nmap b  <Plug>(smartword-b)
-nmap e  <Plug>(smartword-e)
-nmap ge <Plug>(smartword-ge)
-"--------SMARTWORD END--------------------
-
-"--------TREESITTER---------------------
-
-lua << EOF
-
-require'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true
-    }
-}
-
-EOF
-
-"--------TREESITTER END---------------------
 "
 "--------PLUGIN SPECIFIC CONF END---------
 "---------ADVANCED CONFIG BEGIN-------
@@ -239,6 +217,8 @@ colorscheme sonokai
 
 "-------- LUA CONFIG -----------
 lua require('init')
+lua require('zig')
+lua require('smartword')
 
 
 "-----------NETRW CONFIG----------

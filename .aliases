@@ -1,10 +1,51 @@
+#!/bin/bash
+
 alias vim='nvim'
 alias python='python3'
 alias cal='ncal -b'
 
-alias j='cd "$(find -P ~ -type d | fzf)"'
-alias sound='pavucontrol'
-alias screens='arandr'
+PATHS_OF_INTEREST="~/go/src ~/open-source ~/dev ~/personal"
 
-alias l='ls -lh'
+if which -s fzf; then
+    alias j='cd "$(fd --prune -t d -H --format {//} ".git$" $(eval echo ${PATHS_OF_INTEREST}) 2> /dev/null | fzf)"'
+else
+    alias j="echo 'fzf not installed. j not available'"
+fi
+
+alias ls='ls --color=auto'
+alias l='ls -lhF'
+alias ll='ls -la'
 alias gs='git status'
+
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# Gardener aliases
+alias g=gardenctl
+alias gtv='gardenctl target view -o yaml'
+alias gtc='gardenctl target control-plane'
+alias gtc-='gardenctl target unset control-plane'
+alias gk='eval "$(gardenctl kubectl-env bash)"'
+alias gp='eval "$(gardenctl provider-env bash)"'
+alias gcv='gardenctl config view -o yaml'
+source <(gardenctl completion bash)
+complete -o default -F __start_gardenctl g
+gk
+
+# Kubernetes aliases
+alias k='kubectl'
+source <(gardenctl completion bash)
+complete -o default -F __start_kubectl k
+
+
+
