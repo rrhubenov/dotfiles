@@ -3,8 +3,9 @@
 alias vim='nvim'
 alias python='python3'
 alias cal='ncal -b'
+alias lg='lazygit'
 
-PATHS_OF_INTEREST="~/go/src ~/open-source ~/dev ~/personal"
+PATHS_OF_INTEREST="~/go/src ~/open-source ~/dev ~/personal ~/software"
 
 if which -s fzf; then
     alias j='cd "$(fd --prune -t d -H --format {//} ".git$" $(eval echo ${PATHS_OF_INTEREST}) 2> /dev/null | fzf)"'
@@ -47,5 +48,9 @@ alias k='kubectl'
 source <(gardenctl completion bash)
 complete -o default -F __start_kubectl k
 
+# FZF over history
+alias history-fzf='history | fzf --tac +s --height 40% --layout=reverse --ansi --preview "echo {}" | sed "s/ *[0-9]* *//"'
 
+# Lazygit
+alias lg='lazygit'
 

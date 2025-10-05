@@ -1,11 +1,29 @@
 -- LSP Config
 local lsp = require('lsp-zero')
 
+vim.o.updatetime = 250
 lsp.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   -- vim.keymap.set("n", "<C-q>", function() vim.lsp.buf.workspace_symbol() end, opts)
   lsp.default_keymaps({buffer = bufnr})
+
+  -- Open diagnostic in a hover when cursor stays on the error
+  vim.api.nvim_create_autocmd("CursorHold", {
+  buffer = bufnr,
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = 'rounded',
+      source = 'always',
+      prefix = ' ',
+      scope = 'cursor',
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end
+
+})
 end)
 
 local cmp = require('cmp')
@@ -17,6 +35,7 @@ cmp.setup({
         ['<C-c>'] = cmp.mapping.abort(),
         ['<Up>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
         ['<Down>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+        ['<C-l>'] = cmp.mapping.select_next_item(),
         ['<C-k>'] = cmp.mapping(function()
             if cmp.visible() then
                 cmp.select_prev_item({behavior = 'insert'})
@@ -38,6 +57,12 @@ cmp.setup({
     }
 })
 
+-- Disable visualization of diagnostic inline
+vim.diagnostic.config({
+    virtual_text = false
+})
+
+
 local util = require "lspconfig/util"
 require'lspconfig'.gopls.setup {
   cmd = {"gopls"},
@@ -49,6 +74,7 @@ require'lspconfig'.gopls.setup {
       usePlaceholders = true,
       analyses = {
         unusedparams = true,
+        fillstruct = true,
       },
     },
   },
@@ -70,7 +96,12 @@ require'lspconfig'.rust_analyzer.setup({
                 },
             },
             procMacro = {
-                enable = true
+                enable = true,
+                ignored = {
+                    leptos_macro = {
+                        "server",
+                    },
+                },
             },
         }
     }
@@ -84,7 +115,8 @@ require'lspconfig'.zls.setup{}
 local actions = require('telescope.actions')
 require('telescope').setup{
 	defaults = {
-		path_display = { smart },
+		path_display = { "smart" }, 
+                fname_width = 25,
 		mappings = {
 			i = {
 				["<C-k>"] = actions.move_selection_previous,
@@ -131,7 +163,8 @@ require('telescope').setup{
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
-vim.keymap.set('n', '<C-e>', builtin.lsp_references, {})
+vim.keymap.set('n', '<C-e>', function() builtin.lsp_references({fname_width=70}) end, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
 
